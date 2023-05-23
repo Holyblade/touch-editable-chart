@@ -49,7 +49,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
     if (selectedDatum.isNotEmpty) {
       final value = selectedDatum.first.datum;
       setState(() {
-        value.value += 10;
+        value.value += 1;
       });
     }
   }
@@ -60,31 +60,37 @@ class BarChartWidgetState extends State<BarChartWidget> {
       appBar: AppBar(
         title: const Text('Touch Editable Bar Chart'),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        child: charts.BarChart(
-          [
-            charts.Series<BarChartData, String>(
-              id: 'bars',
-              data: data,
-              domainFn: (BarChartData bar, _) => bar.label,
-              measureFn: (BarChartData bar, _) => bar.value,
-              colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-            ),
-          ],
-          animate: true,
-          behaviors: [
-            charts.SelectNearest(
-              eventTrigger: charts.SelectionTrigger.tap,
-              selectClosestSeries: true,
-            ),
-          ],
-          selectionModels: [
-            charts.SelectionModelConfig(
-              type: charts.SelectionModelType.info,
-              changedListener: _handleBarTapped,
-            ),
-          ],
+      body: TapRegion(
+        onTapInside: (event) {
+          print(event.position);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: charts.BarChart(
+            [
+              charts.Series<BarChartData, String>(
+                id: 'bars',
+                data: data,
+                domainFn: (BarChartData bar, _) => bar.label,
+                measureFn: (BarChartData bar, _) => bar.value,
+                colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+              ),
+            ],
+            animate: true,
+            behaviors: [
+              charts.SelectNearest(
+                eventTrigger: charts.SelectionTrigger.tapAndDrag,
+
+                ///eventTrigger: charts.SelectionTrigger.tap,
+              ),
+            ],
+            selectionModels: [
+              charts.SelectionModelConfig(
+                type: charts.SelectionModelType.info,
+                changedListener: _handleBarTapped,
+              ),
+            ],
+          ),
         ),
       ),
     );
