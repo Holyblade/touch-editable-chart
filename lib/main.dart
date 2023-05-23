@@ -44,12 +44,14 @@ class BarChartWidgetState extends State<BarChartWidget> {
     BarChartData('Bar 4', 30),
   ];
 
+  double a = 0;
+
   void _handleBarTapped(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
     if (selectedDatum.isNotEmpty) {
       final value = selectedDatum.first.datum;
       setState(() {
-        value.value += 1;
+        value.value = a;
       });
     }
   }
@@ -62,9 +64,13 @@ class BarChartWidgetState extends State<BarChartWidget> {
       ),
       body: TapRegion(
         onTapInside: (event) {
-          print(event.position);
+          print(event.localPosition.dy);
+          setState(() {
+            a = event.localPosition.dy;
+          });
         },
         child: Container(
+          height: 645,
           padding: const EdgeInsets.all(16),
           child: charts.BarChart(
             [
