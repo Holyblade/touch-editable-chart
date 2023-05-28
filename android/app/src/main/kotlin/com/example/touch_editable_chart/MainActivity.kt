@@ -1,4 +1,4 @@
-package com.example.example_app
+package com.example.touch_editable_chart
 
 import io.flutter.embedding.android.FlutterActivity
 
