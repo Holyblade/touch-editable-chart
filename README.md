@@ -1,12 +1,9 @@
-# Touch Editable Chart
+# Flutter Graph Plotting Library
 
-A Dart and C++ project based.
+A Dart and C++ project based. The Flutter Graph Plotting Library is a versatile tool that allows users to plot and customize graphs in Flutter applications. With this library, users can easily create interactive graphs and customize their appearance and style. The library supports touch gestures for data reading and even allows users to modify vertex values.
 
-## Getting Started
+## Features
 
-- Added support for flutter 3.10.2.
-- Required dart 3 & null safey.
-- Required min SDK version 21.
 - Touch Interaction: The chart supports touch interaction, allowing the user to drag and update the position of the data points.
 - Responsiveness: The chart automatically adjusts its width and height to fit the available space based on the device's screen size, utilizing the MediaQuery to obtain the screen dimensions.
 - Data Editing: When the user drags a data point on the chart, the corresponding FlSpot object is updated to reflect the new position. This enables real-time editing of the chart's data.
