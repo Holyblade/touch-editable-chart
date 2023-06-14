@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:touch_editable_chart/model/coffee_model.dart';
+import 'package:touch_editable_chart/model/airtemperature_model.dart';
+import 'package:touch_editable_chart/model/coolerpower_model.dart';
 import 'package:touch_editable_chart/view/linechart_view.dart';
 
 class LineChartExample extends StatefulWidget {
@@ -10,7 +11,48 @@ class LineChartExample extends StatefulWidget {
 }
 
 class _LineChartExampleState extends State<LineChartExample> {
-  Offset convertToOffsetCoordinates(
+  final int maxValue = 240; // max y value
+  final int xLabels = 10; // max x value, each labels has 1.0 as value
+  final int yLabels = 12; // y values, in this case 240/12
+
+  List<List<Offset>> lines = [];
+
+  List<AirTemperature> air = [
+    AirTemperature(0, 240),
+    AirTemperature(1, 200),
+    AirTemperature(1.5, 230),
+    AirTemperature(2, 150),
+    AirTemperature(2.5, 190),
+    AirTemperature(3, 120),
+    AirTemperature(4, 150),
+    AirTemperature(5, 130),
+    AirTemperature(6, 190),
+    AirTemperature(7, 210),
+    AirTemperature(8, 220),
+    AirTemperature(9, 230),
+    AirTemperature(10, 240),
+  ];
+
+  List<CoolerPower> cooler = [
+    CoolerPower(0, 42),
+    CoolerPower(1, 65),
+    CoolerPower(2, 78),
+    CoolerPower(3, 91),
+    CoolerPower(4, 54),
+    CoolerPower(5, 76),
+    CoolerPower(6, 29),
+    CoolerPower(7, 83),
+    CoolerPower(8, 57),
+    CoolerPower(9, 39),
+    CoolerPower(10, 72),
+  ];
+
+  List<Color> lineColors = [
+    Colors.blue,
+    Colors.green,
+  ];
+
+  Offset _convertToOffsetCoordinates(
       Offset cartesianPoint, Size size, int xLabels, int maxValue) {
     final double xStep = size.width / xLabels;
     final double yStep = size.height / maxValue;
@@ -19,67 +61,43 @@ class _LineChartExampleState extends State<LineChartExample> {
     return Offset(x, y);
   }
 
-  List<List<CoffeeModel>> coffee = [
-    [
-      CoffeeModel(minute: 0, temperature: 240),
-      CoffeeModel(minute: 1, temperature: 200),
-      CoffeeModel(minute: 1.5, temperature: 230),
-      CoffeeModel(minute: 2, temperature: 150),
-      CoffeeModel(minute: 2.5, temperature: 190),
-      CoffeeModel(minute: 3, temperature: 120),
-      CoffeeModel(minute: 4, temperature: 150),
-      CoffeeModel(minute: 5, temperature: 130),
-      CoffeeModel(minute: 6, temperature: 190),
-      CoffeeModel(minute: 7, temperature: 210),
-      CoffeeModel(minute: 8, temperature: 220),
-      CoffeeModel(minute: 9, temperature: 230),
-      CoffeeModel(minute: 10, temperature: 240),
-    ],
-    [
-      CoffeeModel(minute: 0, temperature: 50),
-      CoffeeModel(minute: 1, temperature: 20),
-      CoffeeModel(minute: 1.5, temperature: 30),
-      CoffeeModel(minute: 2, temperature: 40),
-      CoffeeModel(minute: 2.5, temperature: 90),
-      CoffeeModel(minute: 4, temperature: 70),
-      CoffeeModel(minute: 6, temperature: 50),
-      CoffeeModel(minute: 10, temperature: 100),
-    ],
-  ];
-
-  List<Color> lineColors = [
-    Colors.blue,
-    Colors.green,
-  ];
-
-  final int maxValue = 240;
-  final int xLabels = 10;
-  final int yLabels = 12;
+  void _dataLoad(BuildContext context, List<AirTemperature> airTemperature,
+      List<CoolerPower> coolerPower) {
+    List<Offset> data = [];
+    for (AirTemperature air in airTemperature) {
+      Offset offset = _convertToOffsetCoordinates(
+        Offset(air.minute, air.temperature),
+        Size(
+            MediaQuery.of(context).size.width -
+                85, // remnova os padding da esquerda e direita
+            MediaQuery.of(context).size.height -
+                70), // remova os padding do top e bottom
+        xLabels,
+        maxValue,
+      );
+      data.add(offset);
+    }
+    lines.add(data);
+    data = [];
+    for (CoolerPower cooler in coolerPower) {
+      Offset offset = _convertToOffsetCoordinates(
+        Offset(cooler.minute, cooler.power),
+        Size(
+            MediaQuery.of(context).size.width -
+                85, // remnova os padding da esquerda e direita
+            MediaQuery.of(context).size.height -
+                70), // remova os padding do top e bottom
+        xLabels,
+        maxValue,
+      );
+      data.add(offset);
+    }
+    lines.add(data);
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<List<Offset>> lines = [];
-
-    for (List<CoffeeModel> coffeeList in coffee) {
-      List<Offset> line = [];
-
-      for (CoffeeModel coffee in coffeeList) {
-        Offset offset = convertToOffsetCoordinates(
-          Offset(coffee.minute, coffee.temperature),
-          Size(
-              MediaQuery.of(context).size.width -
-                  85, // remnova os padding da esquerda e direita
-              MediaQuery.of(context).size.height -
-                  70), // remova os padding do top e bottom
-          xLabels,
-          maxValue,
-        );
-
-        line.add(offset);
-      }
-
-      lines.add(line);
-    }
+    _dataLoad(context, air, cooler);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
