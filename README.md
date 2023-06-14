@@ -4,10 +4,15 @@ The Flutter Graph Plotting Library is a versatile tool that allows developers to
 
 ## Features
 
-- Touch Interaction: The library enables touch interaction, allowing users to effortlessly drag and update the position of data points on the graph.
-- Responsiveness: The chart automatically adjusts its width and height to fit the available space based on the device's screen size. It utilizes the MediaQuery to obtain the screen dimensions, ensuring a responsive layout.
-- Data Editing: Users can dynamically edit the chart's data in real-time. When a data point is dragged on the chart, the corresponding FlSpot object is updated to reflect the new position.
-- X-Axis Constraint: The chart enforces a constraint on the movement of data points along the x-axis. Each point can only be moved within the x-range defined by its neighboring points. This ensures that data points cannot cross the x-axis boundaries set by adjacent points.
-- Visual Feedback: The chart provides visual feedback to the user during interactions. The selected point can be highlighted or visually differentiated, indicating its active state.
+- **Touch Interaction:** The library enables touch interaction, allowing users to effortlessly drag and update the position of data points on the graph.
+- **Responsiveness:** The chart automatically adjusts its width and height to fit the available space based on the device's screen size. It utilizes the MediaQuery to obtain the screen dimensions, ensuring a responsive layout.
+- **Data Editing:** Users can dynamically edit the chart's data in real-time. When a data point is dragged on the chart, the corresponding FlSpot object is updated to reflect the new position.
+- **X-Axis Constraint:** The chart enforces a constraint on the movement of data points along the x-axis. Each point can only be moved within the x-range defined by its neighboring points. This ensures that data points cannot cross the x-axis boundaries set by adjacent points.
+- **Visual Feedback:** The chart provides visual feedback to the user during interactions. The selected point can be highlighted or visually differentiated, indicating its active state.
+
+## Usage
+
+With the Flutter Graph Plotting Library, you can generate interactive line charts to control a coffee toaster. The library provides a range of features that enable easy customization of the graphs and smooth touch interactions. Users can manipulate data points, visualize changes, and create an engaging graphing experience for controlling the coffee toaster.
 
 By leveraging these powerful functionalities, developers can effortlessly implement interactive line charts in their Flutter applications. Users can manipulate and customize data points with ease, providing an engaging and dynamic graphing experience.
+
