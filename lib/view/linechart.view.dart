@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:touch_editable_chart/painter/linechart_painter.dart';
+import 'package:touch_editable_chart/painter/linechart.painter.dart';
 
 class LineChart extends StatefulWidget {
   final List<List<Offset>> lines;

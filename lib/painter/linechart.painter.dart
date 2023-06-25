@@ -15,9 +15,9 @@ class LineChartPainter extends CustomPainter {
     this.lines,
     this.selectedLineIndex,
     this.selectedPointIndex, {
-    this.xLabels = 10,
-    this.yLabels = 12,
-    this.maxValue = 240,
+    this.xLabels = 10, // caso nenhum valor seja informado este é o default
+    this.yLabels = 12, // caso nenhum valor seja informado este é o default
+    this.maxValue = 240, // caso nenhum valor seja informado este é o default
     required this.lineColors,
   });
 
